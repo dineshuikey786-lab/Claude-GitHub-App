@@ -9,8 +9,11 @@ const BASE = 'https://backend.composio.dev/api/v3.1'
 const ORG_ID = process.env.COMPOSIO_ORG_ID || ''
 const PROJECT_ID = process.env.COMPOSIO_PROJECT_ID || ''
 
+const localStore = require('./_local-store')
+
 const apiKey = () => String(process.env.COMPOSIO_API_KEY || '').trim()
-const hasComposio = () => Boolean(apiKey())
+// Local development (MATAI_LOCAL=1) stores data on disk and needs no Composio key.
+const hasComposio = () => localStore.enabled() || Boolean(apiKey())
 
 // ak_ keys are org keys sent via x-api-key; uak_ keys are user keys that need
 // the org/project headers. Both are accepted by the v3.1 proxy.
@@ -90,6 +93,7 @@ async function proxyExecute(accountId, endpoint, method = 'GET', body = undefine
 // fetch()-shaped wrapper for a toolkit-hosted absolute URL. Returns
 // { ok, status, text, json } so call sites keep their existing semantics.
 async function toolkitFetch(toolkit, url, options = {}) {
+  if (localStore.enabled() && toolkit === 'airtable') return localStore.handle(url, options)
   const account = await activeAccount(toolkit)
   const method = String(options.method || 'GET').toUpperCase()
   let body = options.body

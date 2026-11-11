@@ -25,3 +25,8 @@ dist-ssr
 
 # Local Netlify folder
 .netlify
+
+# Local development backend (npm run dev:local)
+.local-data
+.env.local
+.next

@@ -208,6 +208,20 @@ Every image you upload is saved locally (URL + thumbnail) so you never upload th
 
 ## 🚀 Quick Start
 
+### Run it locally (this fork)
+
+This fork is a Vite app with a Netlify-function backend. To run everything on your own machine, with no Airtable, Composio or Netlify account:
+
+```bash
+npm install
+cp .env.local.example .env.local   # then add your Kie.ai API key
+npm run dev:local
+```
+
+Open `http://localhost:5173` and sign in with the name and PIN from `.env.local` (default `admin` / `1234`). Accounts, the library and characters are stored in `.local-data/`, which git ignores. `npm run vite:dev` instead runs only the frontend against the hosted backend.
+
+The sections below describe the original upstream project and are kept for reference.
+
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/) (v18+)

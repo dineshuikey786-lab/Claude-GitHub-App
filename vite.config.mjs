@@ -1,6 +1,9 @@
 import { defineConfig } from 'vite';
 import tailwindcss from '@tailwindcss/vite';
 
+// `npm run dev:local` points these at the backend running on this machine.
+const backend = process.env.MATAI_BACKEND || 'https://higgsfield-matu.netlify.app';
+
 export default defineConfig({
     base: './',
     plugins: [
@@ -14,12 +17,12 @@ export default defineConfig({
                 secure: false
             },
             '/.netlify/functions': {
-                target: 'https://higgsfield-matu.netlify.app',
+                target: backend,
                 changeOrigin: true,
                 secure: true
             },
             '/download-media': {
-                target: 'https://higgsfield-matu.netlify.app',
+                target: backend,
                 changeOrigin: true,
                 secure: true
             }

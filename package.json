@@ -14,6 +14,7 @@
     "build:studio": "cd packages/studio && npm run build",
     "setup": "npm install && npm run build:studio",
     "vite:dev": "vite",
+    "dev:local": "node scripts/local-dev.mjs",
     "vite:build": "vite build",
     "electron:build": "vite build && electron-builder --mac",
     "electron:build:win": "vite build && electron-builder --win",
